@@ -109,11 +109,6 @@ public class Sticker : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointe
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!_foldImage.gameObject.activeSelf)
-        {
-            _foldImage.gameObject.SetActive(true);
-        }
-
         // Clamp mouse quadrant
         var currentMousePosition = GetCanvasMousePosition(eventData.position);
         var diff = currentMousePosition - _pressMousePosition;
@@ -144,6 +139,10 @@ public class Sticker : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointe
         {
             Vector2 foldDragPoint = _canvasTransform.InverseTransformPoint(_foldImage.transform.TransformPoint(_localDragPoint));
             SetClip(_foldImage.material, clipNormal, foldDragPoint - diff / 2f);
+            if (!_foldImage.gameObject.activeSelf)
+            {
+                _foldImage.gameObject.SetActive(true);
+            }
         }
         else
         {
